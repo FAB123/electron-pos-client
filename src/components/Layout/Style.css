@@ -1,0 +1,5 @@
+main {
+  min-height: calc(100vh - 50px);
+  background-color: #e5e5e5;
+  /* transition: margin-left 0.3s ease; */
+}
