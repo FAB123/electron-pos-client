@@ -3,7 +3,11 @@ const { app, BrowserWindow, screen, ipcMain, dialog } = require("electron");
 const { PosPrinter } = require("./dist/index");
 // const {PosPrinter} = require("electron-pos-printer");
 const { writeToDisplay } = require("./serial");
-
+const {
+  getConfiguration,
+  saveConfiguration,
+  getAppConfiguration,
+} = require("./database");
 
 var printers;
 const isDev = require("electron-is-dev");
@@ -50,6 +54,12 @@ ipcMain.on("print-invoice", invoicePrint);
 
 ipcMain.handle("list-printers", () => printers);
 
+ipcMain.handle("get-configuration", getConfiguration);
+
+ipcMain.handle("save-configuration", saveConfiguration);
+
+ipcMain.handle("get-app-configuration", getAppConfiguration);
+
 ipcMain.on("write-amount", (_, arg) => writeToDisplay(arg[0], arg[1]));
 
 ipcMain.handle("confirm-dialog", () => {
@@ -69,13 +79,16 @@ function appQuit() {
   app.quit();
 }
 
-function invoicePrint(event, printData) {
+async function invoicePrint(_, printData) {
   const options = {
     preview: false,
-    // pageSize: "76mm", //70mm
-    pageSize: {width:270, height : 1200}, // page size
-    margin: "0 0 0 0", //top right bottom left
+    pageSize: "80mm", //70mm
+    // pageSize: { width: 300, height: 1200 }, // page size 270
+    // margin: "0 0 0 10px", //top right bottom left
+    margin: "0 0 0 0",
     copies: 1,
+    // width: "80mm",
+    // scaleFactor:0.8,
     timeOutPerLine: 400,
     silent: true,
   };

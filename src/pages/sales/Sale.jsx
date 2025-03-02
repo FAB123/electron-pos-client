@@ -136,8 +136,8 @@ function Sale({ name, type, label }) {
           net_amount: amounts.total - discount,
         },
       };
-      
-      if (localStorage.getItem('displayType') === 'led8') {
+
+      if (storeData.appdata['display-type'].toString() !== '0') {        
         ipcRenderer.send("write-amount", ["total", amounts.total - discount]);
       }
 
@@ -155,7 +155,7 @@ function Sale({ name, type, label }) {
             setSavedDatas({ ...defaultValues, inital: false });
 
             genrateInvoiceData(response, saleType, storeData).then((resp) => {
-              let printableData = generatePrintableData(resp);
+              let printableData = generatePrintableData(resp, storeData);
               sendPosPrint(printableData);
             });
           } else {

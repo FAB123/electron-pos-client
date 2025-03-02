@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import Partials from "./pages/Partials";
@@ -30,6 +30,7 @@ function App() {
       fontFamily: "Cairo, Roboto, Helvetica, Arial, sans-serif",
     },
   });
+
 
   return (
     <ThemeProvider theme={theme}>

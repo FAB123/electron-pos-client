@@ -1,21 +1,47 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import toaster from "../../instence/toaster";
 
 function CustomerDisplay() {
   const [displayType, setDisplayType] = useState("0");
+  const {ipcRenderer} =  window.require("electron");
 
 
 
   useEffect(() => {
-    let savedDisplayType = localStorage.getItem("displayType");
-    if (savedDisplayType) {
-        setDisplayType(savedDisplayType);
-    }
+    // let savedDisplayType = localStorage.getItem("displayType");
+    // if (savedDisplayType) {
+    //     setDisplayType(savedDisplayType);
+    // }
+
+    
+    const getSavedDisplayType = async () => {
+      try {
+        const response = await ipcRenderer.invoke(
+          "get-configuration",
+          "display-type"
+        );
+        if (response) {
+          setDisplayType(response);
+        }
+      } catch (error) {
+        toaster.error(error)
+      }
+    };
+
+    getSavedDisplayType();
   }, []);
 
-  const handleChange = (event) => {
+  const handleChange = async (event) => {
     setDisplayType(event.target.value);
-    localStorage.setItem("displayType", event.target.value);
+    // localStorage.setItem("displayType", event.target.value);
+    const response = await ipcRenderer.invoke("save-configuration", {
+      item: "display-type",
+      value: event.target.value,
+    });
+    if (response.error) {
+      toaster.error(response.message)
+    }
   };
   return (
     <FormControl sx={{ m: 1, minWidth: 120 }}>

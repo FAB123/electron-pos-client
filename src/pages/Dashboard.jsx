@@ -11,7 +11,6 @@ import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import DnsOutlinedIcon from "@mui/icons-material/DnsOutlined";
 
 import { Chip, Divider, Grid, Stack } from "@mui/material";
-import Breadcrumb from "../components/controls/Breadcrumb";
 import Widget from "../components/bundled/dashboard/Widget";
 
 import LineGraph from "../components/bundled/dashboard/LineGraph";
@@ -29,6 +28,8 @@ function Dashboard() {
 
   const { t } = useTranslation();
   // const { storeData } = useContext(posContext);
+  const { setNavigation } = useContext(posContext);
+
   useEffect(() => {
     getData(GETBASICCONFIG).then((response) => {
       setTotalItem(response.data.total_items);
@@ -39,12 +40,8 @@ function Dashboard() {
       setTodaySales(response.data.today_sales_total);
       setTodayPayments(response.data.today_payment_details);
     });
+    setNavigation(t("modules.dashboard"));
   }, []);
-
-  const { setNavigation } = useContext(posContext);
-
-  setNavigation(t("modules.dashboard"));
-
 
   return (
     <Stack>

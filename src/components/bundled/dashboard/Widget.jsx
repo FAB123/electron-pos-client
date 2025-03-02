@@ -2,8 +2,6 @@ import {
   Avatar,
   Card,
   CardContent,
-  CardHeader,
-  CircularProgress,
   Typography,
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
@@ -55,7 +53,7 @@ function Widget({ title, icon, theme, themeForgound, content }) {
           <Typography variant="button" fontWeight={600} color="error">
             {content === "Loading"
               ? content
-              : `${t("common.total")} : ${content} `}
+              : `${t("common.total")} : ${content.toFixed(2)} `}
           </Typography>
         </Stack>
       </Box>

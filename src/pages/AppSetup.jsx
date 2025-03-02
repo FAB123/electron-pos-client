@@ -11,7 +11,6 @@ import {
   Switch,
   TextField,
   Typography,
-  useTheme,
 } from "@mui/material";
 
 import React, { useCallback, useContext, useEffect, useState } from "react";
@@ -31,6 +30,7 @@ import axios from "axios";
 import KitchenPrinter from "./AppSetup/KitchenPrinter";
 import CustomerDisplay from "./AppSetup/CustomerDisplay";
 import { posContext } from "../stores/AppContext";
+import AppColor from "./AppSetup/AppColor";
 
 function AppSetup() {
   const [savedToken, setSavedToken] = useState(1);
@@ -234,10 +234,7 @@ function AppSetup() {
   //   // localStorage.setItem("printer", printer);
   // };
 
-  const changeColor = (e) => localStorage.setItem("appColor", e.target.value);
 
-  const changeDefaultColor = () => localStorage.setItem("appColor", "#9b27b0");
-  const theme = useTheme();
 
   const { setNavigation } = useContext(posContext);
 
@@ -274,7 +271,7 @@ function AppSetup() {
       >
         <Grid item md={5}>
           <Paper elevation={24} sx={{ p: 2 }}>
-            <Typography variant="body2">Current Token {savedToken}</Typography>
+            <Typography variant="h5">Current Token {savedToken}</Typography>
             <Divider />
             <Card sx={{ padding: 2 }}>
               <Stack spacing={2} direction={"column"}>
@@ -318,20 +315,8 @@ function AppSetup() {
                 <Divider />
                 <CustomerDisplay />
                 <Divider />
-            
-                <Stack direction={"row"} spacing={1}>
-                  <TextField
-                    type="color"
-                    label="App Color Theme"
-                    size="small"
-                    defaultValue={theme.palette.primary.main}
-                    fullWidth
-                    onChange={changeColor}
-                  />
-                  <Button variant="contained" onClick={changeDefaultColor}>
-                    Default
-                  </Button>
-                </Stack>
+                <AppColor />
+   
               </Stack>
             </Card>
           </Paper>

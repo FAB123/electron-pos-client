@@ -1,6 +1,6 @@
 import { toCurrency } from "../../constants/constants";
 
-const generatePrintableData = (printData) => {
+const generatePrintableData = (printData, storeData) => {
   let itemArray = [];
   printData?.invoice_data?.body.forEach((item) => {    
     // console.log(item);
@@ -493,16 +493,19 @@ const generatePrintableData = (printData) => {
     printableData.push(...tokenData);
   }
 
-  let kitchenPrint;
+  // let kitchenPrint;
 
-  const savedPrinter = localStorage.getItem("kitchenPrint");
+  // const savedPrinter = localStorage.getItem("kitchenPrint");
 
-  if (savedPrinter) {
-    kitchenPrint = savedPrinter === "0" ? false : savedPrinter;
-  } else {
-    kitchenPrint = false;
-  }
+  // if (savedPrinter) {
+  //   kitchenPrint = savedPrinter === "0" ? false : savedPrinter;
+  // } else {
+  //   kitchenPrint = false;
+  // }
 
+  let kitchenPrint = storeData?.appdata['kitchen-printer'].toString() === '0' ? null : storeData?.appdata['kitchen-printer']
+
+  
   if (kitchenPrint) {
     let kitchenItemArray = [];
     printData?.invoice_data?.body.forEach((item) => {

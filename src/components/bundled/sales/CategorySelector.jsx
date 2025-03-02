@@ -20,8 +20,7 @@ function CategorySelector({ savedDatas, setSavedDatas }) {
   const [selectedCatogory, setSelectedCatogory] = useState("");
   const { t } = useTranslation();
   const [selected, setSelected] = useState(0);
-    const { storeData } = useContext(posContext);
-  
+  const { storeData } = useContext(posContext);
 
   const { ipcRenderer } = window.require("electron");
 
@@ -47,7 +46,7 @@ function CategorySelector({ savedDatas, setSavedDatas }) {
   };
 
   const addToCart = async (item) => {
-    if (localStorage.getItem('displayType') === 'led8') {
+    if (storeData.appdata["display-type"].toString() !== "0") {
       ipcRenderer.send("write-amount", ["price", item.unit_price]);
     }
     //confirm-dialog
@@ -62,7 +61,7 @@ function CategorySelector({ savedDatas, setSavedDatas }) {
       forceUpdate = true; //confirm === 0 ? false :
     }
 
-    forceUpdate = false; 
+    forceUpdate = false;
 
     if (forceUpdate) {
       let olditems = savedDatas.cartItems[foundinCart];
@@ -170,7 +169,7 @@ function CategorySelector({ savedDatas, setSavedDatas }) {
             sx: {
               color: "white",
               height: "50px",
-              backgroundColor: "primary",//purple[500],
+              backgroundColor: "primary", //purple[500],
               borderRadius: "8px",
             },
           }}
