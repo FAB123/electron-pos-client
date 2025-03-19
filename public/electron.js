@@ -18,10 +18,10 @@ function createWindow() {
     ...size,
     webPreferences: {
       nodeIntegration: true,
-      zoomFactor: 0.8,
+      // zoomFactor: 0.8,
       contextIsolation: false,
     },
-    kiosk: false,
+    kiosk: true,
     movable: false,
     resizable: false,
   });
@@ -83,11 +83,11 @@ async function invoicePrint(_, printData) {
   const options = {
     preview: false,
     pageSize: "80mm", //70mm
-    // pageSize: { width: 300, height: 1200 }, // page size 270
-    // margin: "0 0 0 10px", //top right bottom left
+    // pageSize: { width: 270, height: 1200 }, // page size 270 amana epson
+    // margin: "0 0 0 10px", //top right bottom left amana
     margin: "0 0 0 0",
     copies: 1,
-    // width: "80mm",
+    // width: "70mm", //70 amana
     // scaleFactor:0.8,
     timeOutPerLine: 400,
     silent: true,

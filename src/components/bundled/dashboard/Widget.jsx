@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 
 function Widget({ title, icon, theme, themeForgound, content }) {
   const { t } = useTranslation();
+  
   return (
     <Card sx={{ display: "flex" }}>
       <Box
@@ -53,7 +54,7 @@ function Widget({ title, icon, theme, themeForgound, content }) {
           <Typography variant="button" fontWeight={600} color="error">
             {content === "Loading"
               ? content
-              : `${t("common.total")} : ${content.toFixed(2)} `}
+              : `${t("common.total")} : ${(typeof content === 'number' && !isNaN(content)) ? content.toFixed(2) :"0.00"} `}
           </Typography>
         </Stack>
       </Box>

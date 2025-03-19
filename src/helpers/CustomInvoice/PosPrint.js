@@ -284,7 +284,7 @@ const generatePrintableData = (printData, storeData) => {
         },
         {
           type: "text",
-          value: "Qty \n الكمية",
+          value: "Qty <br/> الكمية",
           style: {
             textAlign: "center",
             width: "20%",
@@ -405,8 +405,8 @@ const generatePrintableData = (printData, storeData) => {
     {
       type: "qrCode", //tokenType
       value: printData?.invoice_data?.qrDataString,
-      height: 120, //150
-      width: 120,
+      height: 150, //150
+      width: 150,
       position: "center",
     },
     // {
