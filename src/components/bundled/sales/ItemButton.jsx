@@ -14,6 +14,11 @@ import {
 import ImageButton from "./ImageButton";
 import basket from "../../../image/no-camera.png";
 import { useTranslation } from "react-i18next";
+import { IconButton } from "@mui/material";
+import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
+import { useState } from "react";
+import PosDialog from "../../controls/PosDialog";
+import AdjustItemIcon from "./AdjustItemIcon";
 
 function ItemButton({ items, selectedCatogory, addToCart, savedDatas }) {
   const itemList = useRef(null);
@@ -81,12 +86,39 @@ function ItemButton({ items, selectedCatogory, addToCart, savedDatas }) {
     }
   };
 
+  const [iconSize, setIconSize] = useState(100);
+  const [fontSize, setFontSize] = useState(13);
+  const [showSettings, setShowSettings] = useState(false);
+
+  useEffect(() => {
+    let savedIconSize = localStorage.getItem("iconSize");
+    let savedFontSize = localStorage.getItem("fontSize");
+    if (savedFontSize) {
+      setFontSize(parseInt(savedFontSize));
+    }
+    if (savedIconSize) {
+      setIconSize(parseInt(savedIconSize));
+    }
+  }, []);
+
   return (
     <Stack
       direction="column"
       justifyContent="space-between"
       sx={{ width: "100%", height: "100%" }}
     >
+      <PosDialog
+        title={"Adjust Item Icon"}
+        open={showSettings}
+        setOpen={setShowSettings}
+      >
+        <AdjustItemIcon
+          iconSize={iconSize}
+          setIconSize={setIconSize}
+          fontSize={fontSize}
+          setFontSize={setFontSize}
+        />
+      </PosDialog>
       <Stack>
         <Paper>
           <Grid
@@ -143,6 +175,13 @@ function ItemButton({ items, selectedCatogory, addToCart, savedDatas }) {
         spacing={0.5}
         sx={{ flexGrow: 1 }}
       >
+        <IconButton
+          color="primary"
+          size="small"
+          onClick={() => setShowSettings(true)}
+        >
+          <AutoFixHighIcon fontSize="small" />
+        </IconButton>
         <Divider />
         <Paper
           sx={{
@@ -176,6 +215,8 @@ function ItemButton({ items, selectedCatogory, addToCart, savedDatas }) {
                     item={item}
                     pic={pic}
                     key={index}
+                    iconSize={iconSize}
+                    fontSize={fontSize}
                     addToCart={addToCart}
                   />
                 );
@@ -218,7 +259,9 @@ function ItemButton({ items, selectedCatogory, addToCart, savedDatas }) {
 
       <Stack sx={{ bottom: 0 }}>
         <Grid item md={12}>
-          <Paper sx={{ paddingX: 1, backgroundColor: theme.palette.primary.main }}>
+          <Paper
+            sx={{ paddingX: 1, backgroundColor: theme.palette.primary.main }}
+          >
             <Stack
               direction={"row"}
               alignItems={"center"}

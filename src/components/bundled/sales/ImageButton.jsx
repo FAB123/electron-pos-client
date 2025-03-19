@@ -3,35 +3,41 @@ import TouchRipple from "@mui/material/ButtonBase/TouchRipple";
 import React from "react";
 import { styled } from "@mui/material/styles";
 import { useTheme } from "@emotion/react";
+import { useState } from "react";
 
-const StyledImageListItemBar = styled(ImageListItemBar)(({ theme }) => ({
-  ".MuiImageListItemBar-titleWrap": {
-    display: "block",
-    padding: 0,
-    textAlign: "center",
-  },
-  ".MuiImageListItemBar-title": {
-    display: "block",
-    fontWeight: 700,
-    fontSize: 12,
-    color: "#fff",
-    width: "100%",
-    lineHeight: "14px",
-    textAlign: "center",
-    wordWrap: "break-word",
-    whiteSpace: "normal",
-  },
-  ".MuiImageListItemBar-subtitle": {
-    color: "#fff",
-    // position: "absolute",
-    width: "100%",
-    // marginTop: "3px",
-    fontWeight: 650,
-  },
-}));
+const StyledImageListItemBar = styled(ImageListItemBar)(
+  ({ theme, textSize = 15 }) => ({
+    ".MuiImageListItemBar-titleWrap": {
+      display: "block",
+      padding: 0,
+      textAlign: "center",
+    },
+    ".MuiImageListItemBar-title": {
+      display: "block",
+      fontWeight: 700,
+      fontSize: textSize,
+      color: "#fff",
+      width: "100%",
+      lineHeight: `calc(${textSize} * 1.2)`,
+      textAlign: "center",
+      wordWrap: "break-word",
+      whiteSpace: "normal",
+    },
+    ".MuiImageListItemBar-subtitle": {
+      color: "#fff",
+      // position: "absolute",
+      width: "100%",
+      // marginTop: "3px",
+      fontSize: `calc(${textSize} * 1.1)`,
+      lineHeight: `calc(${textSize} * 1.3)`,
+      fontWeight: 650,
+    },
+  })
+);
 
-function ImageButton({ item, pic, addToCart }) {
+function ImageButton({ item, pic, fontSize, iconSize, addToCart }) {
   const rippleRef = React.useRef(null);
+
   const theme = useTheme();
   const onRippleStart = (e) => {
     rippleRef.current.start(e);
@@ -44,7 +50,7 @@ function ImageButton({ item, pic, addToCart }) {
     <Stack alignItems="center" m={0} p={0}>
       <ImageListItem
         sx={{
-          width: 100,
+          width: iconSize, //size of icon
           border: `solid ${theme.palette.primary.main} 2px`,
           borderRadius: "12px",
         }}
@@ -73,6 +79,7 @@ function ImageButton({ item, pic, addToCart }) {
             item.item_name_ar ? " - " + item.item_name_ar : ""
           }`}
           position="bottom"
+          textSize={`${fontSize}px`}
           sx={{
             height: "auto",
             backgroundColor: theme.palette.primary.main, //"primary",// "#a09",

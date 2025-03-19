@@ -21,12 +21,12 @@ function createWindow() {
       // zoomFactor: 0.8,
       contextIsolation: false,
     },
-    kiosk: true,
+    kiosk: false,
     movable: false,
     resizable: false,
   });
 
-  win.removeMenu();
+  //win.removeMenu();
 
   win.loadURL(
     isDev
