@@ -1,13 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import { Slider, Box, Stack, Typography } from "@mui/material";
+import toaster from "../../../instence/toaster";
 
 function AdjustItemIcon({ iconSize, setIconSize, fontSize, setFontSize }) {
-  const updateFontSize = (_, updateValue) => {
+  const { ipcRenderer } = window.require("electron");
+
+  const updateFontSize = async (_, updateValue) => {
+    // const response = await ipcRenderer.invoke("save-configuration", {
+    //   item: "fontSize",
+    //   value: updateValue,
+    // });
+    // if (response.error) {
+    //   toaster.error(response.message);
+    // }
     localStorage.setItem("fontSize", updateValue);
     setFontSize(updateValue);
   };
 
-  const updateIconSize = (_, updateValue) => {
+  const updateIconSize = async (_, updateValue) => {
+    // const response = await ipcRenderer.invoke("save-configuration", {
+    //   item: "iconSize",
+    //   value: updateValue,
+    // });
+    // if (response.error) {
+    //   toaster.error(response.message);
+    // }
     localStorage.setItem("iconSize", updateValue);
     setIconSize(updateValue);
   };
